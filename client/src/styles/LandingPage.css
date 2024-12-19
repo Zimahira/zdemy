@@ -1,0 +1,49 @@
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: none;
+}
+
+.welcomeBox {
+  box-shadow: grey 6px 6px 12px 4px;
+  background-color: black;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  border-radius: 25px;
+}
+.quote {
+  width: 40%;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.quote h1 {
+  text-align: center;
+  font-size: 1.8em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(45deg, #ff6f61, #ffbc00);
+  -webkit-background-clip: text;
+  color: transparent;
+  padding: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.welcomeBox .img {
+  width: 60%;
+  height: 50vh;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  margin: 0;
+  border-top-right-radius: 30%;
+  border-bottom-right-radius: 30%;
+}
