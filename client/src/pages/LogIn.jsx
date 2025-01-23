@@ -1,14 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/LogIn.css";
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import useStore from "../../state";
+import { BASE_URL } from "../../constants";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+
+const defaultItem = {
+  name: "",
+  email: "",
+  password: "",
+};
 
 const LogIn = () => {
-  const defultItem = {
-    email: "",
-    password: "",
-  };
+  const nav = useNavigate();
+  const [userInfo, setUserInfo] = useState(defaultItem);
+  const { saveUserData } = useStore((state) => state);
 
-  const [userInfo, setUserInfo] = useState(defultItem);
+  const { isPending, isError, isSuccess, data, mutate } = useMutation({
+    mutationFn: async () => {
+      const res = await axios.post(`${BASE_URL}/auth/login`, userInfo);
+      return res.data;
+    },
+  });
+
+  useEffect(() => {
+    if (isSuccess && data.success === true) {
+      alert(data.message);
+      localStorage.setItem("userData", JSON.stringify(data.userData));
+      saveUserData(data.userData);
+      // nav("/");
+    }
+
+    if (isError || data.success === false) {
+      alert(data.message);
+    }
+  }, [isPending, isError, isSuccess, data]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -17,19 +45,7 @@ const LogIn = () => {
   };
 
   const handleSubmit = async () => {
-    console.log(JSON.stringify(userInfo));
-
-    const response = await fetch("http://localhost:3000/login", {
-      method: "POST",
-      body: JSON.stringify(userInfo),
-    });
-
-    const data = await response.json();
-    console.log("data: ", data);
-
-    // if (data == 'user found') {
-    //   nav("/");
-    // }
+    mutate(userInfo);
   };
 
   return (
@@ -80,3 +96,14 @@ const LogIn = () => {
 };
 
 export default LogIn;
+
+// react
+// react-query
+// redux/zustand
+// tailwind
+// typescript
+
+// {isLoading, isSuccess, isError } = useQuery() / useMutation()
+
+// GET -> useQuery
+// POST -> useMutation

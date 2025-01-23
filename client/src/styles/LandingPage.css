@@ -47,3 +47,70 @@
   border-top-right-radius: 30%;
   border-bottom-right-radius: 30%;
 }
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.courses-section {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.courses-section h2 {
+  font-size: 2rem;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 98%;
+  padding: 0 2%;
+  background-color: red;
+  overflow: hidden;
+}
+
+.courses-container {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.3s ease-in-out;
+  white-space: nowrap;
+}
+
+.carousel-arrow {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 2rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 10;
+}
+
+.carousel-arrow.left {
+  left: 10px;
+}
+
+.carousel-arrow.right {
+  right: 10px;
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}

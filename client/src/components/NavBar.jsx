@@ -3,15 +3,25 @@ import "../styles/NavBar.css";
 import { CiSearch } from "react-icons/ci";
 import { useNavigate } from "react-router";
 import { FaCartShopping } from "react-icons/fa6";
+import useStore from "../../state";
 
 const NavBar = () => {
   const nav = useNavigate();
-
+  const user_localStorage = localStorage.getItem("userData");
+  const { user, removeUserData } = useStore((state) => state);
+  console.log("user: ", user);
   const handleSignUp = () => {
     nav("/signup");
   };
   const handleLogIn = () => {
     nav("/logIn");
+  };
+
+  const handleLogOut = () => {
+    removeUserData();
+    console.log("user: ", user);
+    localStorage.removeItem("userData");
+    nav("/login");
   };
 
   return (
@@ -64,12 +74,22 @@ const NavBar = () => {
         <p>
           <FaCartShopping />
         </p>
-        <button className="login" onClick={handleLogIn}>
-          LOG IN
-        </button>
-        <button className="signup" onClick={handleSignUp}>
-          SIGN UP
-        </button>
+        {}
+        {name}
+        {user_localStorage?.email || user?.email ? (
+          <button className="login" onClick={handleLogOut}>
+            LOG OUT
+          </button>
+        ) : (
+          <>
+            <button className="login" onClick={handleLogIn}>
+              LOG IN
+            </button>
+            <button className="signup" onClick={handleSignUp}>
+              SIGN UP
+            </button>
+          </>
+        )}
       </header>
     </>
   );

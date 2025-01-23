@@ -1,35 +1,28 @@
 const express = require("express");
 const cors = require("cors");
+const connectDB = require("./db.js");
+const userRoute = require("./route/user.route.js");
+const courseRoute = require("./route/course.route.js");
+
 const app = express();
 const port = 3000;
 
-app.use(cors());
+connectDB();
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
-const users = [
-  { user: "zima", email: "zima11@gmail.com", password: 12334 },
-  { user: "emma", email: "emma@gmail.com", password: 123994 },
-  { user: "zim0", email: "zimo@gmail.com", password: 1234 },
-];
-
-app.get("/", function (req, res) {
-  res.json("pls  be hard");
+app.get("/", (req, res) => {
+  res.send("Server is running...");
 });
 
-app.post("/login", function (req, res) {
-  const { email, password } = req.body;
-  console.log(email);
-  console.log(password);
+app.use("/api/auth", userRoute);
+app.use("/api/course", courseRoute);
 
-  for (let i = 0; i < users.length; i++) {
-    if (email == users[i].email && password == users[i].password) {
-      res.json("found user");
-    }
-  }
+// /api/auth/signup
+// /api/auth/login
 
-  res.json("user not found");
-});
-
-app.listen(port, function () {
-  console.log(`Example app listening on port ${port}`);
+app.listen(port, () => {
+  console.log(`App listening on port ${port}`);
 });
