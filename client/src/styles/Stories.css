@@ -1,0 +1,96 @@
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  background-color: transparent;
+  overflow: hidden;
+  width: 97%;
+  /* height: 100%; */
+  padding: 0;
+  margin: 2%;
+}
+
+.carousel-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.carousel-content {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.company-logo {
+  max-width: 150px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat {
+  margin: 5px 0;
+}
+
+.stat-value {
+  font-weight: bold;
+}
+
+.read-more {
+  text-decoration: none;
+  color: blue;
+  margin-top: 10px;
+}
+
+.carousel-image {
+  flex: 1;
+  text-align: right;
+}
+
+.carousel-image img {
+  max-width: 100%;
+}
+
+.carousel-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.carousel-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #333;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.carousel-pagination {
+  display: flex;
+  align-items: center;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: #ddd;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.carousel-dot.active {
+  background-color: #333;
+}

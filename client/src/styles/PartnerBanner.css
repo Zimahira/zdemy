@@ -1,0 +1,36 @@
+.partners-banner {
+  background-color: #f9f9f9;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.partners-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.partners-heading {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.partners-logos-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.partner-logo-item {
+  flex: 1 1 calc(12.5% - 20px);
+  max-width: 150px;
+}
+
+.partner-logo {
+  width: 100%;
+  max-width: 100px;
+  height: auto;
+}

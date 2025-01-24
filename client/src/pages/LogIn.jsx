@@ -1,14 +1,19 @@
 import React from "react";
 import "../styles/LogIn.css";
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import useStore from "../../state";
+import { BASE_URL } from "../../constants";
 
 const LogIn = () => {
-  const defultItem = {
+  const defaultItem = {
+    name: "",
     email: "",
     password: "",
   };
 
-  const [userInfo, setUserInfo] = useState(defultItem);
+  const [userInfo, setUserInfo] = useState(defaultItem);
+  const nav = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -16,19 +21,38 @@ const LogIn = () => {
     setUserInfo(updatedObject);
   };
 
-  const handleSubmit = async () => {
-    console.log(JSON.stringify(userInfo));
+  const { saveUserData } = useStore((state) => state);
 
-    const response = await fetch("http://localhost:3000/login", {
+  const handleSubmit = async () => {
+    const response = await fetch(`${BASE_URL}/auth/login`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(userInfo),
     });
 
     const data = await response.json();
-    console.log("data: ", data);
+    console.log(data);
 
-    // if (data == 'user found') {
+    // or !data.success
+    if (data.success === false) {
+      alert(data.message);
+      return;
+    }
+
+    alert(data.message);
+    localStorage.setItem("userData", JSON.stringify(data.userData));
+    saveUserData(data.userData);
+    nav("/");
+
+    // if (data.success === true) { // true or false
+    // if (data.success) { // true or false
+    //   alert(data.message);
+    //   localStorage.setItem("userData", JSON.stringify(data.userData));
     //   nav("/");
+    // } else {
+    //   alert(data.message);
     // }
   };
 
