@@ -12,7 +12,7 @@ const CourseCard = ({ course }) => {
         <p className="course-description">{course.details}</p>
         <p className="course-description">{course.course}</p>
         <p className="course-description">${course.price}</p>
-        <button onClick={handle} className="course-btn">Delete course</button>
+        <button className="course-btn">View Details</button>
       </div>
     </div>
   );

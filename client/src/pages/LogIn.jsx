@@ -1,19 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/LogIn.css";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import useStore from "../../state";
 import { BASE_URL } from "../../constants";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+
+const defaultItem = {
+  name: "",
+  email: "",
+  password: "",
+};
 
 const LogIn = () => {
-  const defaultItem = {
-    name: "",
-    email: "",
-    password: "",
-  };
-
-  const [userInfo, setUserInfo] = useState(defaultItem);
   const nav = useNavigate();
+  const [userInfo, setUserInfo] = useState(defaultItem);
+  const { saveUserData } = useStore((state) => state);
+
+  const { isPending, isError, isSuccess, data, mutate } = useMutation({
+    mutationFn: async () => {
+      const res = await axios.post(`${BASE_URL}/auth/login`, userInfo);
+      return res.data;
+    },
+  });
+
+  useEffect(() => {
+    if (isSuccess && data.success === true) {
+      alert(data.message);
+      localStorage.setItem("userData", JSON.stringify(data.userData));
+      saveUserData(data.userData);
+      // nav("/");
+    }
+
+    if (isError || data.success === false) {
+      alert(data.message);
+    }
+  }, [isPending, isError, isSuccess, data]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -24,36 +47,7 @@ const LogIn = () => {
   const { saveUserData } = useStore((state) => state);
 
   const handleSubmit = async () => {
-    const response = await fetch(`${BASE_URL}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userInfo),
-    });
-
-    const data = await response.json();
-    console.log(data);
-
-    // or !data.success
-    if (data.success === false) {
-      alert(data.message);
-      return;
-    }
-
-    alert(data.message);
-    localStorage.setItem("userData", JSON.stringify(data.userData));
-    saveUserData(data.userData);
-    nav("/");
-
-    // if (data.success === true) { // true or false
-    // if (data.success) { // true or false
-    //   alert(data.message);
-    //   localStorage.setItem("userData", JSON.stringify(data.userData));
-    //   nav("/");
-    // } else {
-    //   alert(data.message);
-    // }
+    mutate(userInfo);
   };
 
   return (
@@ -104,3 +98,14 @@ const LogIn = () => {
 };
 
 export default LogIn;
+
+// react
+// react-query
+// redux/zustand
+// tailwind
+// typescript
+
+// {isLoading, isSuccess, isError } = useQuery() / useMutation()
+
+// GET -> useQuery
+// POST -> useMutation

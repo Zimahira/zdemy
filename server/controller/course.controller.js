@@ -72,9 +72,4 @@ const deleteCourse = async (req, res) => {
   });
 };
 
-const updateCourse = async (req, res) = {
-  const updatee = await Course.updateOne({}, {})
-  
-}
-
 module.exports = { addCourse, getCourses, deleteCourse };

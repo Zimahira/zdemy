@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../../constants";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 
 const Course = () => {
   const [courseDetails, setCourseDetails] = useState({
@@ -23,33 +25,35 @@ const Course = () => {
     setCourseDetails(updateCourseDetails);
   };
 
-  const handleSubmit = async () => {
-    // homework:
-    // loop through each item in courseDetails and append to formData
-    // change body to formData
+  const formData = new FormData();
 
-    const formData = new FormData();
-
-    for (const key in courseDetails) {
-      if (courseDetails[key]) {
-        formData.append(key, courseDetails[key]);
-      }
+  for (const key in courseDetails) {
+    if (courseDetails[key]) {
+      formData.append(key, courseDetails[key]);
     }
+  }
+  const { isPending, isError, isSuccess, data, mutate } = useMutation({
+    mutationFn: async () => {
+      const response = await axios.post(`${BASE_URL}/course`, formData);
+      return response.data;
+    },
+  });
 
-    const response = await fetch(`${BASE_URL}/course`, {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await response.json();
+  useEffect(() => {
     console.log("data: ", data);
 
-    if (!data.success) {
-      alert(data.message);
+    if (isSuccess && data?.success) {
+      alert(data?.message);
       return;
     }
+    if (isError && !data?.success) {
+      alert(data?.message);
+      return;
+    }
+  }, [isPending, isError, isSuccess, data]);
 
-    alert("course succeefully added");
+  const handleSubmit = async () => {
+    mutate(formData);
   };
 
   return (
