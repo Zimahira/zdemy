@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import "../styles/LogIn.css";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import useStore from "../../state";
 import { BASE_URL } from "../../constants";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
+import useZust from "../../state";
 
 const defaultItem = {
   name: "",
@@ -16,7 +16,6 @@ const defaultItem = {
 const LogIn = () => {
   const nav = useNavigate();
   const [userInfo, setUserInfo] = useState(defaultItem);
-  const { saveUserData } = useStore((state) => state);
 
   const { isPending, isError, isSuccess, data, mutate } = useMutation({
     mutationFn: async () => {
@@ -26,15 +25,15 @@ const LogIn = () => {
   });
 
   useEffect(() => {
-    if (isSuccess && data.success === true) {
-      alert(data.message);
-      localStorage.setItem("userData", JSON.stringify(data.userData));
-      saveUserData(data.userData);
-      // nav("/");
+    if (isSuccess && data?.success === true) {
+      alert(data?.message);
+      localStorage.setItem("userData", JSON.stringify(data?.userData));
+      saveUserData(data?.userData);
+      nav("/");
     }
 
-    if (isError || data.success === false) {
-      alert(data.message);
+    if (isError || data?.success === false) {
+      alert(data?.message);
     }
   }, [isPending, isError, isSuccess, data]);
 
@@ -44,7 +43,7 @@ const LogIn = () => {
     setUserInfo(updatedObject);
   };
 
-  const { saveUserData } = useStore((state) => state);
+  const { saveUserData } = useZust((state) => state);
 
   const handleSubmit = async () => {
     mutate(userInfo);

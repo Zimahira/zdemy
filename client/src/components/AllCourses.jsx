@@ -16,7 +16,7 @@ const AllCourses = () => {
   };
 
   const handleDelete = async (courseId) => {
-    const response = await fetch(`${BASE_URL}/api/course/${courseId}`, {
+    const response = await fetch(`${BASE_URL}/course/${courseId}`, {
       method: "DELETE",
     });
 
@@ -24,11 +24,12 @@ const AllCourses = () => {
     return data;
   };
 
+  // get info of logged-in user
+
   useEffect(() => {
     const fetchAllCourses = async () => {
       const { courseData } = await fetchCourses();
       setCourses(courseData);
-      console.log(courseData);
     };
     fetchAllCourses();
   }, []);
@@ -37,6 +38,10 @@ const AllCourses = () => {
 
   const handleAddCourse = () => {
     nav("/courses");
+  };
+
+  const handleViewDetails = (id) => {
+    nav(id);
   };
 
   return (
@@ -52,20 +57,25 @@ const AllCourses = () => {
       ) : (
         <div className="course-list">
           {courses.map((course, index) => (
-            <li key={course.id} className="course-item">
+            <li key={course._id} className="course-item">
               <span>{index + 1}. </span>
               <div>{course.name}</div> - {course.details} - ${course.price}
-              <button
-                className="update-btn"
-                onClick={() => handleUpdate(course.id)}
-              >
-                Update
-              </button>
+              {
+                <button
+                  className="update-btn"
+                  onClick={() => handleUpdate(course.id)}
+                >
+                  Update
+                </button>
+              }
               <button
                 className="delete-btn"
                 onClick={() => handleDelete(course.id)}
               >
                 Delete
+              </button>
+              <button onClick={() => handleViewDetails(course._id)}>
+                View Details
               </button>
             </li>
           ))}
@@ -77,7 +87,7 @@ const AllCourses = () => {
 
 export default AllCourses;
 
-//! CRUD
+// ! CRUD
 
 //* GET /api/course
 // frontend - no body in request

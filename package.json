@@ -11,5 +11,8 @@
   "description": "",
   "devDependencies": {
     "concurrently": "^9.1.2"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^4.36.1"
   }
 }

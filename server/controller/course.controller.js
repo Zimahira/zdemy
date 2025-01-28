@@ -72,4 +72,21 @@ const deleteCourse = async (req, res) => {
   });
 };
 
-module.exports = { addCourse, getCourses, deleteCourse };
+const getCourseById = async (req, res) => {
+  let { courseId } = req.params;
+  console.log("courseId: ", courseId);
+  const course = await Course.findOne({ _id: courseId });
+  if (!course) {
+    return res.status(400).json({
+      success: false,
+      message: "course not found",
+    });
+  }
+  return res.status(200).json({
+    success: true,
+    message: "course found",
+    courseData: course,
+  });
+};
+
+module.exports = { addCourse, getCourses, getCourseById, deleteCourse };

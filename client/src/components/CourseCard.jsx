@@ -2,8 +2,6 @@ import React from "react";
 import "../styles/CourseCard.css";
 
 const CourseCard = ({ course }) => {
-  console.log(course);
-
   return (
     <div className="course-card">
       <img src={course.imageUrl} alt={course.name} className="course-image" />
@@ -12,7 +10,6 @@ const CourseCard = ({ course }) => {
         <p className="course-description">{course.details}</p>
         <p className="course-description">{course.course}</p>
         <p className="course-description">${course.price}</p>
-        <button className="course-btn">View Details</button>
       </div>
     </div>
   );

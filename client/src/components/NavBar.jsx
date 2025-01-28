@@ -3,12 +3,12 @@ import "../styles/NavBar.css";
 import { CiSearch } from "react-icons/ci";
 import { useNavigate } from "react-router";
 import { FaCartShopping } from "react-icons/fa6";
-import useStore from "../../state";
+import useZust from "../../state";
 
 const NavBar = () => {
   const nav = useNavigate();
   const user_localStorage = localStorage.getItem("userData");
-  const { user, removeUserData } = useStore((state) => state);
+  const { user, removeUserData } = useZust((state) => state);
   console.log("user: ", user);
   const handleSignUp = () => {
     nav("/signup");
