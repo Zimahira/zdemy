@@ -1,7 +1,7 @@
 header {
   height: 10vh;
   box-shadow: grey 6px 6px 6px 6px;
-  background-color: whitesmoke;
+  background-color: rgba(0, 0, 0, 0.041);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,7 +15,7 @@ header {
 
 button {
   border: none;
-  background-color: whitesmoke;
+  background-color: brown;
   outline: none;
 }
 
@@ -24,7 +24,7 @@ button {
 }
 
 .categories {
-  background-color: whitesmoke;
+  background-color: brown;
   cursor: pointer;
   padding: 30px 5px;
 }
@@ -78,17 +78,11 @@ button {
   flex-direction: row;
   align-items: baseline;
   justify-content: space-between;
-  /* border: 1px solid #ddd; */
   border-radius: 25px;
   padding: 8px 12px;
   width: 50%;
   height: 40px;
   font-size: 1em;
-  /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); */
-}
-
-.searchBar div {
-  /* margin-right: 12px; */
 }
 
 .searchBar svg {
@@ -104,7 +98,6 @@ button {
   outline: none;
   color: #333;
   font-size: 1em;
-  /* padding: 0; */
   box-shadow: none;
 }
 

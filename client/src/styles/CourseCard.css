@@ -1,111 +1,82 @@
-/* Basic Card Styling */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
 .course-card {
-  width: 300px;
-  background-color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
   border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Slightly more prominent shadow */
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-bottom: 30px;
-  border: 1px solid #e0e0e0; /* Soft border around the card */
-}
-
-/* Hover Effects */
-.course-card:hover {
-  transform: translateY(-8px); /* Slight lifting effect */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
-}
-
-/* Course Image Styling */
-.course-image {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-bottom: 2px solid #f4f4f4; /* Soft border under the image */
-  transition: transform 0.3s ease;
-}
-
-.course-image:hover {
-  transform: scale(1.05); /* Subtle zoom effect on hover */
-}
-
-/* Course Info Section */
-.course-info {
-  padding: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  color: #f5f5f5;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  border-left: 4px solid #00c853;
+  overflow: hidden;
+  position: relative;
 }
 
-/* Course Title Styling */
+.course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 200, 83, 0.3);
+}
+
+.course-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.course-info {
+  padding: 0.8rem 0.5rem;
+}
+
 .course-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 12px;
-  text-transform: uppercase; /* Makes the title look more refined */
-  letter-spacing: 1px;
-}
-
-/* Course Description Styling */
-.course-description {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 18px;
-  line-height: 1.6;
-  text-align: center; /* Ensures descriptions are centered for a cleaner look */
-}
-
-/* Course Price Styling */
-.course-price {
   font-size: 1.1rem;
-  color: #007bff;
   font-weight: 600;
-  margin-bottom: 18px;
+  color: #00e676;
+  margin-bottom: 0.3rem;
 }
 
-/* View Details Button Styling */
-.course-btn {
-  padding: 12px 24px;
-  background-color: #6d28d2; /* Purple color */
-  color: white;
+.course-category {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #ffcc00;
+  margin-bottom: 0.4rem;
+}
+
+.course-description {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #e0e0e0;
+  margin-bottom: 0.5rem;
+}
+
+.course-price {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: #00c853;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 0.6rem;
+}
+
+.enroll-btn {
+  background: linear-gradient(45deg, #00e676, #00c853);
+  color: #fff;
   border: none;
-  border-radius: 30px; /* More rounded button */
-  font-size: 1.1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-.course-btn:hover {
-  background-color: #4c1d95; /* Darker purple on hover */
-  transform: scale(1.05); /* Slight zoom effect on hover */
-}
-
-.course-btn:focus {
-  outline: none;
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .course-card {
-    width: 100%;
-    margin: 10px auto;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Lighter shadow on mobile */
-  }
-
-  .course-title {
-    font-size: 1.3rem; /* Slightly smaller title on mobile */
-  }
-
-  .course-btn {
-    font-size: 1rem;
-    padding: 10px 20px;
-  }
-
-  .course-price {
-    font-size: 1rem; /* Make price a bit smaller on mobile */
-  }
+.enroll-btn:hover {
+  background: linear-gradient(45deg, #00c853, #009624);
+  transform: scale(1.05);
 }

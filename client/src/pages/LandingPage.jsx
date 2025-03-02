@@ -17,42 +17,30 @@ const LandingPage = () => {
   const [comments, setComments] = useState([]);
   const [visibleComments, setVisibleComments] = useState(4);
 
-  const getCourses = async () => {
-    const response = await fetch(`${BASE_URL}/course`, {
-      method: "GET",
-    });
-
-    const data = await response.json();
-    return data;
-  };
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const userRole = userData?.role;
+  const isLoggedIn = !!userData;
 
   useEffect(() => {
-    const callGetCourses = async () => {
-      const { courseData } = await getCourses();
-      setCourses(courseData);
+    const getCourses = async () => {
+      const response = await fetch(`${BASE_URL}/course`, { method: "GET" });
+      const data = await response.json();
+      setCourses(data.courseData);
     };
-    callGetCourses();
+    getCourses();
   }, []);
 
-  const getComments = async () => {
-    const response = await fetch(`${BASE_URL}/comment`, {
-      method: "GET",
-    });
-
-    const data = await response.json();
-    return data;
-  };
-
   useEffect(() => {
-    const callGetComments = async () => {
-      const { commentData } = await getComments();
-      setComments(commentData);
+    const getComments = async () => {
+      const response = await fetch(`${BASE_URL}/comment`, { method: "GET" });
+      const data = await response.json();
+      setComments(data.commentData);
     };
-    callGetComments();
+    getComments();
   }, []);
 
   const handleShowMore = () => {
-    nav("/allCourses");
+    nav("/Courses");
   };
 
   const handleComments = () => {
@@ -72,6 +60,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
+
       <div className="landing-statement">
         <h1 className="landing-heading">
           All the skills you need in one place
@@ -85,15 +74,15 @@ const LandingPage = () => {
       <div className="courses-section">
         <h2 className="courses-heading">Featured Courses</h2>
         <div className="courses-container">
-          {courses?.slice(0, visibleCourses)?.map((course, index) => (
-            <CourseCard key={course} course={course} />
+          {courses.slice(0, visibleCourses).map((course) => (
+            <CourseCard key={course.id} course={course} />
           ))}
         </div>
-
         <button className="show-more-btn" onClick={handleShowMore}>
           Show More
         </button>
       </div>
+
       <PartnerBanner className="partner-banner" />
       <FeaturesSection className="features-section" />
       <Stories className="stories-section" />
@@ -101,12 +90,9 @@ const LandingPage = () => {
       <div className="comment-section">
         <h2 className="comment-heading">Comments</h2>
         <div className="comment-container">
-          {Array.isArray(comments) &&
-            comments
-              .slice(0, visibleComments)
-              .map((comment) => (
-                <CommentCard key={comment.id} comment={comment} />
-              ))}
+          {comments.slice(0, visibleComments).map((comment) => (
+            <CommentCard key={comment.id} comment={comment} />
+          ))}
         </div>
       </div>
 

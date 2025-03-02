@@ -19,8 +19,8 @@ const Course = () => {
   };
 
   const handleFileChange = (event) => {
-    const { name } = event.target; // name of the input field
-    const files = Array.from(event.target.files); // value
+    const { name } = event.target;
+    const files = Array.from(event.target.files);
     const updateCourseDetails = { ...courseDetails, [name]: files[0] };
     setCourseDetails(updateCourseDetails);
   };
@@ -116,7 +116,6 @@ const Course = () => {
               className="image"
               type="file"
               name="file"
-              // value={courseDetails.image}
               onChange={handleFileChange}
               required
             />

@@ -1,5 +1,5 @@
 .partners-banner {
-  background-color: #f9f9f9;
+  background-color: black;
   padding: 40px 20px;
   text-align: center;
 }
@@ -12,7 +12,7 @@
 .partners-heading {
   font-size: 1.8rem;
   margin-bottom: 20px;
-  color: #333;
+  color: #746e6e;
 }
 
 .partners-logos-list {

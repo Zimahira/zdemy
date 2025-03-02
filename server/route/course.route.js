@@ -8,7 +8,6 @@ const {
 const uploadMiddleware = require("../middlewares/upload.middleware");
 const router = express.Router();
 
-// /api/course/ DELETE
 router.post("/", uploadMiddleware.handleUpload, addCourse);
 router.get("/", getCourses);
 router.get("/:courseId", getCourseById);

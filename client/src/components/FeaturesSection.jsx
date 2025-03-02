@@ -57,22 +57,15 @@ const FeaturesSection = () => {
 
   return (
     <section className="features-section">
-      <h2 className="features-title">Learning focused on your goals</h2>
+      <h2 className="features-title">Learning Focused on Your Goals</h2>
       <div className="features-container">
-        <div
-          className="features-tabs"
-          role="tablist"
-          aria-orientation="vertical"
-        >
+        <div className="features-tabs">
           {features.map((feature, index) => (
             <div
               key={feature.id}
               className={`feature-tab ${
                 activeFeature === index ? "active" : ""
               }`}
-              role="tab"
-              tabIndex={0}
-              aria-selected={activeFeature === index}
               onClick={() => setActiveFeature(index)}
             >
               <img
@@ -81,7 +74,7 @@ const FeaturesSection = () => {
                 className="feature-icon"
               />
               <div className="feature-info">
-                <p className="feature-title">{feature.title}</p>
+                <h3 className="feature-title">{feature.title}</h3>
                 <p className="feature-description">{feature.description}</p>
               </div>
             </div>
@@ -91,7 +84,7 @@ const FeaturesSection = () => {
         <div className="features-panel">
           <img
             src={features[activeFeature].panelImage}
-            alt={`Panel image for ${features[activeFeature].title}`}
+            alt={features[activeFeature].title}
             className="features-panel-image"
           />
           {features[activeFeature].link && (
@@ -101,7 +94,7 @@ const FeaturesSection = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Learn more about {features[activeFeature].title}
+              Learn More →
             </a>
           )}
         </div>

@@ -7,100 +7,115 @@ const AllCourses = () => {
   const nav = useNavigate();
   const [courses, setCourses] = useState([]);
 
+  const userData = JSON.parse(localStorage.getItem("userData")) || {};
+  console.log(userData);
+
   const fetchCourses = async () => {
-    const response = await fetch(`${BASE_URL}/course`, {
-      method: "GET",
-    });
-    const data = await response.json();
-    return data;
+    try {
+      const response = await fetch(`${BASE_URL}/course`, { method: "GET" });
+      const data = await response.json();
+      setCourses(data.courseData);
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    }
   };
 
   const handleDelete = async (courseId) => {
-    const response = await fetch(`${BASE_URL}/course/${courseId}`, {
-      method: "DELETE",
-    });
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this course?"
+    );
+    if (!confirmDelete) return;
 
-    let data = await response.json();
-    return data;
+    try {
+      const response = await fetch(`${BASE_URL}/course/${courseId}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        setCourses((prevCourses) =>
+          prevCourses.filter((course) => course._id !== courseId)
+        );
+      } else {
+        console.error("Error deleting course:", data.message);
+      }
+    } catch (error) {
+      console.error("Error deleting course:", error);
+    }
   };
 
-  // get info of logged-in user
-
   useEffect(() => {
-    const fetchAllCourses = async () => {
-      const { courseData } = await fetchCourses();
-      setCourses(courseData);
-    };
-    fetchAllCourses();
+    fetchCourses();
   }, []);
 
-  const handleUpdate = () => {};
+  const handleUpdate = (courseId) => {
+    nav(`/update-course/${courseId}`);
+  };
 
   const handleAddCourse = () => {
-    nav("/courses");
+    nav("/add-course");
   };
 
   const handleViewDetails = (id) => {
-    nav(id);
+    nav(`/course/${id}`);
+  };
+
+  const handleBuyCourse = (id) => {
+    nav(`/Courses/${id}`);
   };
 
   return (
     <div className="all-courses">
       <div className="header">
         <h1>All Courses</h1>
-        <button className="add-course-btn" onClick={handleAddCourse}>
-          Add Course
-        </button>
+        {userData && userData.role === "admin" && (
+          <button className="add-course-btn" onClick={handleAddCourse}>
+            Add Course
+          </button>
+        )}
       </div>
       {courses.length === 0 ? (
         <p>No courses available.</p>
       ) : (
-        <div className="course-list">
+        <ul className="course-list">
           {courses.map((course, index) => (
             <li key={course._id} className="course-item">
               <span>{index + 1}. </span>
-              <div>{course.name}</div> - {course.details} - ${course.price}
-              {
+              <div className="courseName">{course.name}</div> -{" "}
+              <div className="courseDetails">{course.details} </div>-
+              <div className="coursePrice">${course.price}</div>
+              {userData && userData.role === "admin" ? (
+                <>
+                  <button
+                    className="update-btn"
+                    onClick={() => handleUpdate(course._id)}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDelete(course._id)}
+                  >
+                    Delete
+                  </button>
+                </>
+              ) : (
                 <button
-                  className="update-btn"
-                  onClick={() => handleUpdate(course.id)}
+                  className="buy-btn"
+                  onClick={() => handleBuyCourse(course._id)}
                 >
-                  Update
+                  Buy
                 </button>
-              }
-              <button
-                className="delete-btn"
-                onClick={() => handleDelete(course.id)}
-              >
-                Delete
-              </button>
+              )}
               <button onClick={() => handleViewDetails(course._id)}>
                 View Details
               </button>
             </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );
 };
 
 export default AllCourses;
-
-// ! CRUD
-
-//* GET /api/course
-// frontend - no body in request
-// backend - sends data in response
-
-//* POST /api/course
-// frontend - send body in request
-// backend - sends data in request
-
-//* GET /api/course/courseId
-// frontend - send id in url
-// backend - sends data in request
-
-//* UPDATE /api/course/courseId
-
-//* DELETE /api/course/courseId

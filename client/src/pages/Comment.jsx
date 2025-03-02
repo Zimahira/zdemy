@@ -1,67 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { BASE_URL } from "../../constants";
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { BASE_URL } from "../../constants";
+import CommentCard from "../components/commentCard";
 
 const Comment = () => {
-  const [commentDetails, setCommentDetails] = useState({
-    comment: "",
-  });
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    const updatedObject = { ...commentDetails, [name]: value };
-    setCommentDetails(updatedObject);
-  };
-
-  const { isPending, isError, isSuccess, data, mutate } = useMutation({
-    mutationFn: async (val) => {
-      const response = await axios.post(`${BASE_URL}/comment`, val);
-      return response.data;
-    },
-  });
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    console.log("data: ", data);
+    const fetchComments = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/comment`);
+        if (response.data.success) {
+          setComments(response.data.commentData);
+        }
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
 
-    if (isSuccess && data?.success) {
-      alert(data?.message);
-      return;
-    }
-    if (isError && !data?.success) {
-      alert(data?.message);
-      return;
-    }
-  }, [isPending, isError, isSuccess, data]);
-
-  const handleSubmit = async () => {
-    mutate(commentDetails);
-  };
+    fetchComments();
+  }, []);
 
   return (
-    <>
-      <div className="box">
-        <div className="courseEditBox">
-          <h2>COMMENT</h2>
-
-          <div className="inputs">
-            <label htmlFor="Comment">Comment Below</label>
-            <input
-              className="comment"
-              type="text"
-              name="comment"
-              value={commentDetails.comment}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <button type="submit" className="submitBtn" onClick={handleSubmit}>
-            Add comment
-          </button>
-        </div>
-      </div>
-    </>
+    <div>
+      <h2>All Comments</h2>
+      {comments.length > 0 ? (
+        comments.map((comment) => (
+          <CommentCard key={comment._id} comment={comment} />
+        ))
+      ) : (
+        <p>No comments yet.</p>
+      )}
+    </div>
   );
 };
 

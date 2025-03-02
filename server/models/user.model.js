@@ -1,32 +1,17 @@
-// const mongoose = require("mongoose");
-
-// const userSchema = new mongoose.Schema({
-//   name: {
-//     type: String,
-//     required: true,
-//   },
-//   email: {
-//     type: String,
-//     required: true,
-//     unique: true,
-//   },
-//   password: {
-//     type: String,
-//     minlength: [6, "Invalid length! Minmum is 6 character"],
-//   },
-// });
-
-// const User = mongoose.model("User", userSchema);
-// module.exports = User;
-
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+const UserSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  password: String,
+  purchasedCourses: [
+    {
+      courseId: { type: mongoose.Schema.Types.ObjectId, ref: "Course" },
+      transactionRef: String,
+      amount: Number,
+      status: String,
+    },
+  ],
 });
 
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
+module.exports = mongoose.model("User", UserSchema);

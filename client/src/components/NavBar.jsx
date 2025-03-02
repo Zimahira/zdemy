@@ -32,14 +32,12 @@ const NavBar = () => {
           <button className="categories">Categories</button>
           <div className="dropdown">
             <ul>
-              <li>Category 1xsgxtmrdftujgf</li>
-              <li>Category 2</li>
-              <li>Category 3</li>
-              <li>Category 4</li>
-              <li>Category 5</li>
-              <li>Category 6</li>
-              <li>Category 7</li>
-              <li>Category 8</li>
+              <li>Browse certificates</li>
+              <li>Development</li>
+              <li>Finanace</li>
+              <li>Accounting</li>
+              <li>IT</li>
+              <li>lifeStyle</li>
             </ul>
           </div>
         </div>

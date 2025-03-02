@@ -1,4 +1,6 @@
 const express = require("express");
+
+const uploadMiddleware = require("../middlewares/upload.middleware");
 const {
   addComment,
   getComment,
@@ -6,8 +8,7 @@ const {
 } = require("../controller/comment.controller");
 const router = express.Router();
 
-// /api/comment/ DELETE
-router.post("/", addComment);
+router.post("/", uploadMiddleware.handleUpload, addComment);
 router.get("/", getComment);
 router.delete("/:commentId", deleteComment);
 
